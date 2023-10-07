@@ -1,9 +1,9 @@
 import React from 'react';
 
 const App = () => (
-    <div className="">
-        a
-    </div>
+    <h1 className="text-3xl font-bold underline">
+        Hello world!
+    </h1>
 );
 
 export default App
