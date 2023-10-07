@@ -1,6 +1,5 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-
 export type UserRoles = 'ADMIN' | 'BACKOFFICE' | 'TRAVEL_AGENT' | 'CUSTOMER' | 'UNREGISTERED'
 
 export interface UserState {

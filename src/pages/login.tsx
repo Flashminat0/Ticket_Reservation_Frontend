@@ -152,9 +152,13 @@ const Login = () => {
                                         Password
                                     </label>
                                     <div className="text-sm">
-                                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
+                                        <span onClick={() => {
+                                            toast.info('Please contact the admin to reset your password', {
+                                                position: "bottom-center",
+                                            })
+                                        }} className="font-semibold text-indigo-600 hover:text-indigo-500 cursor-pointer">
                                             Forgot password?
-                                        </a>
+                                        </span>
                                     </div>
                                 </div>
                                 <div className="mt-2">

@@ -1,23 +1,33 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useAppSelector} from "../hooks.ts";
+import {useAppDispatch, useAppSelector} from "../hooks.ts";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {login, UserState} from "../features/userSlice.ts";
 
 const Activate = () => {
+    const dispatch = useAppDispatch()
+
     const navigate = useNavigate();
-    const user = useAppSelector(state => state.user)
+    const user: UserState = useAppSelector(state => state.user)
 
     const [name, setName] = useState('')
     const [age, setAge] = useState('')
     const [gender, setGender] = useState('Male')
 
     useEffect(() => {
-        if (user.nic === '') {
+        if (user && user.nic === '') {
             toast.warning('You need to login first', {
                 position: "bottom-center",
             })
             navigate('/login')
+        }
+
+        if (user && user.loggedIn) {
+            toast.warning('You are already logged in', {
+                position: "bottom-center",
+            })
+            navigate('/')
         }
     }, [user]);
 
@@ -29,7 +39,20 @@ const Activate = () => {
             userType: 'customer',
             userGender: gender
         }).then((response) => {
-            console.log(response.data)
+            toast.success(response.data.message, {
+                position: "bottom-center",
+            })
+
+            const reduxData: UserState = {
+                nic: user.nic,
+                isAdmin: false,
+                userRoles: ['CUSTOMER'],
+                loggedIn: true
+            }
+
+            dispatch(login(reduxData))
+
+            navigate('/')
         }).catch((error) => {
             toast.error(error.response.data.message, {
                 position: "bottom-center",

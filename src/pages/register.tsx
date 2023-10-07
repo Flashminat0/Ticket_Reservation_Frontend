@@ -3,7 +3,7 @@ import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useAppDispatch} from "../hooks.ts";
-import {login, UserRoles, UserState} from "../features/userSlice.ts";
+import {login, UserState} from "../features/userSlice.ts";
 
 const Register = () => {
     const navigate = useNavigate();
@@ -90,11 +90,7 @@ const Register = () => {
                                         className="block text-sm font-medium leading-6 text-gray-900">
                                         Password
                                     </label>
-                                    <div className="text-sm">
-                                        <a href="#" className="font-semibold text-indigo-600 hover:text-indigo-500">
-                                            Forgot password?
-                                        </a>
-                                    </div>
+
                                 </div>
                                 <div className="mt-2">
                                     <input
