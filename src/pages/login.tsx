@@ -3,7 +3,7 @@ import axios from "axios";
 import {toast} from "react-toastify";
 import {useAppDispatch} from "../hooks.ts";
 import {login, UserRoles, UserState} from "../features/userSlice.ts";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 
 const Login = () => {
@@ -76,6 +76,15 @@ const Login = () => {
                         navigate('/', {replace: true})
                     })
                     .catch(() => {
+                        if (isAdmin) {
+                            userRoles = ['ADMIN']
+                        }
+
+                        reduxData.userRoles = userRoles
+
+                        dispatch(login(reduxData))
+
+
                         navigate('/activate', {replace: true})
 
                         toast.info('Please complete your registration to activate your account', {
@@ -83,9 +92,6 @@ const Login = () => {
                         })
 
                     })
-
-
-                // console.log(userResponse)
 
 
             })
@@ -117,9 +123,9 @@ const Login = () => {
                     </div>
 
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                        <form className="space-y-6" onSubmit={(e) => {
+                        <form className="space-y-6" onSubmit={async (e) => {
                             e.preventDefault()
-                            onSubmitLogin()
+                            await onSubmitLogin()
                         }}>
                             <div>
                                 <label htmlFor="nic" className="block text-sm font-medium leading-6 text-gray-900">
@@ -176,9 +182,10 @@ const Login = () => {
 
                         <p className="mt-10 text-center text-sm text-gray-500">
                             Not a member?{' '}
-                            <a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-                                Start a 14 day free trial
-                            </a>
+                            <Link to="/register"
+                                  className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
+                                Register here
+                            </Link>
                         </p>
                     </div>
                 </div>
