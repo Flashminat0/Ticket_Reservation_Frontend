@@ -1,40 +1,37 @@
 import {createSlice} from '@reduxjs/toolkit'
-import type {PayloadAction} from '@reduxjs/toolkit'
 
-export enum UserRoles {
-    ADMIN = 'ADMIN',
-    BACKOFFICE = 'BACKOFFICE',
-    TRAVEL_AGENT = 'TRAVEL_AGENT',
-    CUSTOMER = 'CUSTOMER',
-    UNREGISTERED = 'UNREGISTERED'
-}
+
+export type UserRoles = 'ADMIN' | 'BACKOFFICE' | 'TRAVEL_AGENT' | 'CUSTOMER' | 'UNREGISTERED'
 
 export interface UserState {
+    loggedIn: boolean,
     nic: string,
     isAdmin: boolean,
     userRoles?: UserRoles[]
 }
 
 const initialState: UserState = {
+    loggedIn: false,
     nic: '',
     isAdmin: false,
-    userRoles: [UserRoles.UNREGISTERED]
+    userRoles: ['UNREGISTERED']
 }
 
 export const userSlice = createSlice({
     name: 'user',
     initialState,
     reducers: {
-
         login: (state, action) => {
+            state.loggedIn = action.payload.loggedIn
             state.nic = action.payload.nic
             state.isAdmin = action.payload.isAdmin
             state.userRoles = action.payload.userRoles
         },
         logout: (state) => {
+            state.loggedIn = false
             state.nic = ''
             state.isAdmin = false
-            state.userRoles = [UserRoles.UNREGISTERED]
+            state.userRoles = ['UNREGISTERED']
         }
     },
 })

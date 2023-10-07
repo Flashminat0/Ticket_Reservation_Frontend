@@ -1,105 +1,8 @@
-import React, {useState} from 'react';
-import axios from "axios";
-import {toast} from "react-toastify";
-import {useAppDispatch} from "../hooks.ts";
-import {login, UserRoles, UserState} from "../features/userSlice.ts";
-import {useNavigate} from "react-router-dom";
+import React from 'react';
+
+const Activate = () => {
 
 
-const Login = () => {
-    const dispatch = useAppDispatch()
-    const navigate = useNavigate();
-
-
-    const [nic, setNic] = useState('')
-    const [password, setPassword] = useState('')
-
-    const onSubmitLogin = async () => {
-        axios.post('/api/auth/login', {
-            nic: nic,
-            password: password
-        })
-            .then(async (response) => {
-                const userNIC = response.data.data.nic
-                const isAdmin = response.data.data.isAdmin
-                const isActive = response.data.data.isActive
-
-                if (!isActive) {
-                    toast.warning('Your account was deactivated. Please contact the admin', {
-                        position: "bottom-center",
-                    })
-
-                    return
-                }
-
-                const reduxData: UserState = {
-                    nic: userNIC,
-                    isAdmin: isAdmin,
-                    userRoles: ['UNREGISTERED'],
-                    loggedIn: false
-                }
-
-                dispatch(login(reduxData))
-
-
-                let userRoles: UserRoles[]
-                axios.get(`/api/user/${userNIC}`)
-                    .then((userResponse) => {
-
-                        const basicUserRole = userResponse.data.data.userType
-
-                        if (basicUserRole === 'Customer') {
-                            userRoles = ['CUSTOMER']
-                        }
-
-                        if (basicUserRole === 'Travel Agent') {
-                            userRoles = ['TRAVEL_AGENT']
-                        }
-
-                        if (basicUserRole === 'Backoffice') {
-                            userRoles = ['BACKOFFICE']
-                        }
-
-                        if (isAdmin) {
-                            userRoles = [...userRoles, 'ADMIN']
-                        }
-
-                        reduxData.userRoles = userRoles
-                        reduxData.loggedIn = true
-
-                        dispatch(login(reduxData))
-
-                        toast.success(response.data.message, {
-                            position: "bottom-center",
-                        })
-
-                        navigate('/', {replace: true})
-                    })
-                    .catch(() => {
-                        navigate('/activate', {replace: true})
-
-                        toast.info('Please complete your registration to activate your account', {
-                            position: "bottom-center",
-                        })
-
-                    })
-
-
-                // console.log(userResponse)
-
-
-            })
-
-            .catch(error => {
-                toast.error(error.response.data.message, {
-                    position: "bottom-center",
-                })
-
-                navigate('/register', {replace: true})
-
-            })
-
-    }
 
     return (
         <div className={`h-full bg-white`}>
@@ -112,14 +15,14 @@ const Login = () => {
                             alt="Your Company"
                         />
                         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-                            Sign in to your account
+                            Activate your account
                         </h2>
                     </div>
 
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form className="space-y-6" onSubmit={(e) => {
                             e.preventDefault()
-                            onSubmitLogin()
+                            // onSubmitLogin()
                         }}>
                             <div>
                                 <label htmlFor="nic" className="block text-sm font-medium leading-6 text-gray-900">
@@ -127,7 +30,7 @@ const Login = () => {
                                 </label>
                                 <div className="mt-2">
                                     <input
-                                        onChange={(e) => setNic(e.target.value)}
+                                        // onChange={(e) => setNic(e.target.value)}
                                         id="nic"
                                         name="nic"
                                         type="nic"
@@ -153,7 +56,7 @@ const Login = () => {
                                 </div>
                                 <div className="mt-2">
                                     <input
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        // onChange={(e) => setPassword(e.target.value)}
                                         id="password"
                                         name="password"
                                         type="password"
@@ -187,4 +90,4 @@ const Login = () => {
     );
 };
 
-export default Login;
+export default Activate;
