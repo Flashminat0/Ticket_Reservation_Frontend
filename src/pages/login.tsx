@@ -33,6 +33,7 @@ const Login = () => {
                 }
 
                 const reduxData: UserState = {
+                    name: '',
                     nic: userNIC,
                     isAdmin: isAdmin,
                     userRoles: ['UNREGISTERED'],
@@ -47,6 +48,7 @@ const Login = () => {
                     .then((userResponse) => {
 
                         const basicUserRole = userResponse.data.data.userType
+                        const userName = userResponse.data.data.name
 
                         if (basicUserRole === 'Customer') {
                             userRoles = ['CUSTOMER']
@@ -66,6 +68,7 @@ const Login = () => {
 
                         reduxData.userRoles = userRoles
                         reduxData.loggedIn = true
+                        reduxData.name = userName
 
                         dispatch(login(reduxData))
 

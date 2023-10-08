@@ -3,6 +3,7 @@ import {createSlice} from '@reduxjs/toolkit'
 export type UserRoles = 'ADMIN' | 'BACKOFFICE' | 'TRAVEL_AGENT' | 'CUSTOMER' | 'UNREGISTERED'
 
 export interface UserState {
+    name : string,
     loggedIn: boolean,
     nic: string,
     isAdmin: boolean,
@@ -10,6 +11,7 @@ export interface UserState {
 }
 
 const initialState: UserState = {
+    name: '',
     loggedIn: false,
     nic: '',
     isAdmin: false,
@@ -21,12 +23,14 @@ export const userSlice = createSlice({
     initialState,
     reducers: {
         login: (state, action) => {
+            state.name = action.payload.name
             state.loggedIn = action.payload.loggedIn
             state.nic = action.payload.nic
             state.isAdmin = action.payload.isAdmin
             state.userRoles = action.payload.userRoles
         },
         logout: (state) => {
+            state.name = ''
             state.loggedIn = false
             state.nic = ''
             state.isAdmin = false

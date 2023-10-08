@@ -69,6 +69,7 @@ const Security = () => {
                 }
 
                 const reduxData: UserState = {
+                    name: '',
                     nic: userNIC,
                     isAdmin: isAdmin,
                     userRoles: ['UNREGISTERED'],
@@ -81,6 +82,7 @@ const Security = () => {
                 axios.get(`/api/user/${userNIC}`)
                     .then((userResponse) => {
                         const basicUserRole = userResponse.data.data.userType
+                        const userName = userResponse.data.data.name
 
                         if (basicUserRole === 'Customer') {
                             userRoles = ['CUSTOMER']
@@ -100,6 +102,7 @@ const Security = () => {
 
                         reduxData.userRoles = userRoles
                         reduxData.loggedIn = true
+                        reduxData.name = userName
 
                         dispatch(login(reduxData))
 
@@ -294,23 +297,6 @@ const Security = () => {
                                         {page.title}
                                     </h1>
                                 </div>
-
-                                {/*<form className="relative flex flex-1" action="#" method="GET">*/}
-                                {/*    <label htmlFor="search-field" className="sr-only">*/}
-                                {/*        Search*/}
-                                {/*    </label>*/}
-                                {/*    <MagnifyingGlassIcon*/}
-                                {/*        className="pointer-events-none absolute inset-y-0 left-0 h-full w-5 text-gray-400"*/}
-                                {/*        aria-hidden="true"*/}
-                                {/*    />*/}
-                                {/*    <input*/}
-                                {/*        id="search-field"*/}
-                                {/*        className="block h-full w-full border-0 py-0 pl-8 pr-0 text-gray-900 placeholder:text-gray-400 focus:ring-0 sm:text-sm"*/}
-                                {/*        placeholder="Search..."*/}
-                                {/*        type="search"*/}
-                                {/*        name="search"*/}
-                                {/*    />*/}
-                                {/*</form>*/}
                                 <div className="flex items-center gap-x-4 lg:gap-x-6">
                                     <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                                         <span className="sr-only">View notifications</span>
@@ -333,7 +319,7 @@ const Security = () => {
                                             <span className="hidden lg:flex lg:items-center">
                                                 <span className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                                                       aria-hidden="true">
-                                                    Tom Cook
+                                                    {user.name}
                                                 </span>
                                                 <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400"
                                                                  aria-hidden="true"/>
@@ -372,17 +358,18 @@ const Security = () => {
                             </div>
                         </div>
 
-                        <main className="xl:pl-96">
+                        {/*<main className="xl:pl-96">*/}
+                        <main className="">
                             <div className="px-4 py-10 sm:px-6 lg:px-8 lg:py-6">
                                 <Outlet/>
                             </div>
                         </main>
                     </div>
 
-                    <aside
-                        className="fixed bottom-0 left-20 top-16 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">
-                        {/* Secondary column (hidden on smaller screens) */}
-                    </aside>
+                    {/*<aside*/}
+                    {/*    className="fixed bottom-0 left-20 top-16 hidden w-96 overflow-y-auto border-r border-gray-200 px-4 py-6 sm:px-6 lg:px-8 xl:block">*/}
+                    {/*    /!* Secondary column (hidden on smaller screens) *!/*/}
+                    {/*</aside>*/}
                 </div>
             </div>
         </div>

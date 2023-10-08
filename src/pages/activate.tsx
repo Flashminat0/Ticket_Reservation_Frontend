@@ -44,6 +44,7 @@ const Activate = () => {
             })
 
             const reduxData: UserState = {
+                name: name,
                 nic: user.nic,
                 isAdmin: false,
                 userRoles: ['CUSTOMER'],

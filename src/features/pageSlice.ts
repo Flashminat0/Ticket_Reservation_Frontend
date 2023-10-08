@@ -8,7 +8,6 @@ export interface PageState {
 const initialState: PageState = {
     title: 'Home',
     item: 0
-
 }
 
 export const pageSlice = createSlice({

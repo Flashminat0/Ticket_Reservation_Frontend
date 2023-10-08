@@ -27,6 +27,7 @@ const Register = () => {
             })
 
             const reduxData: UserState = {
+                name: '',
                 nic: nic,
                 isAdmin: false,
                 userRoles: ['UNREGISTERED'],
