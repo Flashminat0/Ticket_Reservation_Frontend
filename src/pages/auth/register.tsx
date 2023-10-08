@@ -2,8 +2,8 @@ import React, {useState} from 'react';
 import {Link, useNavigate} from "react-router-dom";
 import axios from "axios";
 import {toast} from "react-toastify";
-import {useAppDispatch} from "../hooks.ts";
-import {login, UserState} from "../features/userSlice.ts";
+import {useAppDispatch} from "../../hooks.ts";
+import {login, UserState} from "../../features/userSlice.ts";
 
 const Register = () => {
     const navigate = useNavigate();

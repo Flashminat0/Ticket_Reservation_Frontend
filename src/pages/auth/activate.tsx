@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import axios from "axios";
-import {useAppDispatch, useAppSelector} from "../hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../hooks.ts";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {login, UserState} from "../features/userSlice.ts";
+import {login, UserState} from "../../features/userSlice.ts";
 
 const Activate = () => {
     const dispatch = useAppDispatch()

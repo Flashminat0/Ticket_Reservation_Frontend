@@ -31,8 +31,8 @@ const navigation = [
     {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
 ]
 const userNavigation = [
-    {name: 'Your profile', href: '#'},
-    {name: 'Sign out', href: '#'},
+    {name: 'Your profile', href: '/settings'},
+    {name: 'Sign out', href: '/logout'},
 ]
 
 function classNames(...classes: string[]) {
@@ -259,7 +259,7 @@ const Security = () => {
                                 alt="Your Company"
                             />
                         </div>
-                        <nav className="mt-8">
+                        <nav className="mt-1">
                             <ul role="list" className="flex flex-col items-center space-y-1">
                                 {navigation.map((item) => (
                                     <li key={item.name}>
@@ -311,11 +311,7 @@ const Security = () => {
                                     <Menu as="div" className="relative">
                                         <Menu.Button className="-m-1.5 flex items-center p-1.5">
                                             <span className="sr-only">Open user menu</span>
-                                            {/*<img*/}
-                                            {/*    className="h-8 w-8 rounded-full bg-gray-50"*/}
-                                            {/*    src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80"*/}
-                                            {/*    alt=""*/}
-                                            {/*/>*/}
+                                            <ChevronDownIcon className="ml-2 h-5 w-5 text-gray-400 lg:hidden"/>
                                             <span className="hidden lg:flex lg:items-center">
                                                 <span className="ml-4 text-sm font-semibold leading-6 text-gray-900"
                                                       aria-hidden="true">
@@ -339,15 +335,17 @@ const Security = () => {
                                                 {userNavigation.map((item) => (
                                                     <Menu.Item key={item.name}>
                                                         {({active}) => (
-                                                            <a
-                                                                href={item.href}
+                                                            <span
+                                                                onClick={() => {
+                                                                    navigate(item.href)
+                                                                }}
                                                                 className={classNames(
                                                                     active ? 'bg-gray-50' : '',
                                                                     'block px-3 py-1 text-sm leading-6 text-gray-900'
                                                                 )}
                                                             >
                                                                 {item.name}
-                                                            </a>
+                                                            </span>
                                                         )}
                                                     </Menu.Item>
                                                 ))}

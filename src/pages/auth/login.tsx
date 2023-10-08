@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
 import axios from "axios";
 import {toast} from "react-toastify";
-import {useAppDispatch} from "../hooks.ts";
-import {login, UserRoles, UserState} from "../features/userSlice.ts";
+import {useAppDispatch} from "../../hooks.ts";
+import {login, UserRoles, UserState} from "../../features/userSlice.ts";
 import {Link, useNavigate} from "react-router-dom";
 
 
