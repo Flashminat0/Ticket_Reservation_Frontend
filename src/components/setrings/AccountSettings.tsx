@@ -1,18 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {login, UserRoles, UserState} from "../../features/userSlice.ts";
+import {login, logout, UserRoles, UserState} from "../../features/userSlice.ts";
 import {useAppDispatch, useAppSelector} from "../../hooks.ts";
 import Activation from "./Activation.tsx";
 import axios from "axios";
 import {toast} from "react-toastify";
-
-// {
-//     "id": "6522b62f792ba016c3966c61",
-//     "name": "Yasas Lowe",
-//     "age": 11,
-//     "nic": "993240184v2",
-//     "userType": "Customer",
-//     "userGender": "Male"
-// }
+import {useNavigate} from "react-router-dom";
+import {removeNIC} from "../../services/tokenStorageService.ts";
 
 interface User {
     id: string,
@@ -25,6 +18,7 @@ interface User {
 
 const AccountSettings = () => {
     const dispatch = useAppDispatch()
+    const navigate = useNavigate();
 
     const user: UserState = useAppSelector(state => state.user)
 
@@ -92,6 +86,30 @@ const AccountSettings = () => {
                 position: "bottom-center",
             })
         })
+    }
+
+    const onDeleteAccount = async () => {
+    //    ask for confirmation using browser's native alert
+        if (window.confirm('Are you sure you want to delete your account?')) {
+            axios.delete(`/api/user/${user.nic}`)
+                .then((response) => {
+                    toast.success(response.data.message, {
+                        position: "bottom-center",
+                    })
+
+                    dispatch(logout())
+                    removeNIC()
+                    navigate('/login')
+
+
+                }).catch((error) => {
+                toast.error(error.response.data.message, {
+                    position: "bottom-center",
+                })
+            })
+        } else {
+            // Do nothing!
+        }
     }
 
 
@@ -208,6 +226,28 @@ const AccountSettings = () => {
                     </div>
                 </div>
             </form>
+
+            <div className="bg-white shadow sm:rounded-lg mt-5">
+                <div className="px-4 py-5 sm:p-6">
+                    <h3 className="text-base font-semibold leading-6 text-gray-900">Delete Account</h3>
+                    <div className="mt-2 sm:flex sm:items-start sm:justify-between">
+                        <div className="max-w-xl text-sm text-gray-500">
+                            <p>
+                                This action will delete your account and all the data associated with it.
+                            </p>
+                        </div>
+                        <div className="mt-5 sm:ml-6 sm:mt-0 sm:flex sm:flex-shrink-0 sm:items-center mr-1">
+                            <button
+                                onClick={onDeleteAccount}
+                                type="button"
+                                className="inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                            >
+                                Delete Account
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             {showActivation && <Activation/>}
         </div>
