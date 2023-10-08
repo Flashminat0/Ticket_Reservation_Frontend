@@ -33,7 +33,7 @@ interface Navigation {
 }
 
 const navigation: Navigation[] = [
-    {name: 'Dashboard', href: '#', icon: HomeIcon, current: true},
+    {name: 'Dashboard', href: '/', icon: HomeIcon, current: false},
     {name: 'Team', href: '#', icon: UsersIcon, current: false},
     {name: 'Projects', href: '#', icon: FolderIcon, current: false},
     {name: 'Calendar', href: '#', icon: CalendarIcon, current: false},
@@ -175,6 +175,27 @@ const Security = () => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
+    const [navigationLinks, setNavigationLinks] = useState<Navigation[]>(navigation)
+
+    useEffect(() => {
+        // console.log('page changed', page.item)
+
+        if (page.item !== -1) {
+            const newNavigationLinks: Navigation[] = navigation.map((item, index) => {
+                item.current = index === page.item;
+
+                return item
+            })
+
+            setNavigationLinks(newNavigationLinks)
+
+
+        } else {
+            setNavigationLinks(navigationLinks)
+        }
+
+
+    }, [page])
 
     return (
         <div className={`h-full bg-white`}>
@@ -236,8 +257,10 @@ const Security = () => {
                                                 <ul role="list" className="-mx-2 flex-1 space-y-1">
                                                     {navigation.map((item) => (
                                                         <li key={item.name}>
-                                                            <a
-                                                                href={item.href}
+                                                            <span
+                                                                onClick={() => {
+                                                                    navigate(item.href)
+                                                                }}
                                                                 className={classNames(
                                                                     item.current
                                                                         ? 'bg-gray-800 text-white'
@@ -248,7 +271,7 @@ const Security = () => {
                                                                 <item.icon className="h-6 w-6 shrink-0"
                                                                            aria-hidden="true"/>
                                                                 {item.name}
-                                                            </a>
+                                                            </span>
                                                         </li>
                                                     ))}
                                                 </ul>
@@ -274,8 +297,10 @@ const Security = () => {
                             <ul role="list" className="flex flex-col items-center space-y-1">
                                 {navigation.map((item) => (
                                     <li key={item.name}>
-                                        <a
-                                            href={item.href}
+                                        <span
+                                            onClick={() => {
+                                                navigate(item.href)
+                                            }}
                                             className={classNames(
                                                 item.current ? 'bg-gray-800 text-white' : 'text-gray-400 hover:text-white hover:bg-gray-800',
                                                 'group flex gap-x-3 rounded-md p-3 text-sm leading-6 font-semibold'
@@ -283,7 +308,7 @@ const Security = () => {
                                         >
                                             <item.icon className="h-6 w-6 shrink-0" aria-hidden="true"/>
                                             <span className="sr-only">{item.name}</span>
-                                        </a>
+                                        </span>
                                     </li>
                                 ))}
                             </ul>

@@ -16,11 +16,14 @@ export const pageSlice = createSlice({
     reducers: {
         setTitle: (state, action) => {
             state.title = action.payload
+        },
+        setItem: (state, action) => {
+            state.item = action.payload
         }
     },
 })
 
 // Action creators are generated for each case reducer function
-export const {setTitle} = pageSlice.actions
+export const {setTitle, setItem} = pageSlice.actions
 
 export default pageSlice.reducer
