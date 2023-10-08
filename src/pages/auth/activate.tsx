@@ -3,7 +3,7 @@ import axios from "axios";
 import {useAppDispatch, useAppSelector} from "../../hooks.ts";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
-import {login, UserState} from "../../features/userSlice.ts";
+import {login, UserRoles, UserState} from "../../features/userSlice.ts";
 
 const Activate = () => {
     const dispatch = useAppDispatch()
@@ -11,9 +11,14 @@ const Activate = () => {
     const navigate = useNavigate();
     const user: UserState = useAppSelector(state => state.user)
 
+    const currentUserTypes: UserRoles[] = [
+        'BACKOFFICE', 'TRAVEL_AGENT'
+    ]
+
     const [name, setName] = useState('')
     const [age, setAge] = useState('')
     const [gender, setGender] = useState('Male')
+    const [userType, setUserType] = useState<UserRoles>('TRAVEL_AGENT')
 
     useEffect(() => {
         if (user && user.nic === '') {
@@ -29,14 +34,14 @@ const Activate = () => {
             })
             navigate('/')
         }
-    }, [user]);
+    }, []);
 
     const onSubmitLogin = async () => {
         axios.post('/api/user', {
             name: name,
             age: age,
             nic: user.nic,
-            userType: 'customer',
+            userType: userType,
             userGender: gender
         }).then((response) => {
             toast.success(response.data.message, {
@@ -47,7 +52,7 @@ const Activate = () => {
                 name: name,
                 nic: user.nic,
                 isAdmin: false,
-                userRoles: ['CUSTOMER'],
+                userRoles: [userType],
                 loggedIn: true
             }
 
@@ -130,6 +135,33 @@ const Activate = () => {
                                     <option>Male</option>
                                     <option>Female</option>
                                     <option disabled>That's all lol</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label htmlFor="user_type"
+                                       className="block text-sm font-medium leading-6 text-gray-900">
+                                    User Type
+                                </label>
+                                <select
+                                    onChange={(e) => {
+                                        const rawUserType = e.target.value
+
+                                        const selectedUserType = currentUserTypes.find((userType) => {
+                                            return userType === rawUserType
+                                        })
+
+                                        if (selectedUserType) {
+                                            setUserType(selectedUserType)
+                                        }
+                                    }}
+                                    id="user_type"
+                                    name="user_type"
+                                    className="mt-2 block w-full rounded-md border-0 py-1.5 pl-3 pr-10 text-gray-900 ring-1 ring-inset ring-gray-300 focus:ring-2 focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                                    defaultValue="Travel Agent"
+                                >
+                                    <option value={'TRAVEL_AGENT'}>Travel Agent</option>
+                                    <option value={'BACKOFFICE'}>Backoffice</option>
                                 </select>
                             </div>
 

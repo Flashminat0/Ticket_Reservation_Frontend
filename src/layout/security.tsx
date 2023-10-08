@@ -117,6 +117,7 @@ const Security = () => {
                     position: "bottom-center",
                 })
 
+                removeNIC()
                 navigate('/login', {replace: true})
             })
     }
