@@ -1,12 +1,10 @@
-import React, {useEffect} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {Outlet, useNavigate} from "react-router-dom";
 import {checkLoggedInWithResistance, checkNIC, removeNIC, storeNIC} from "../services/tokenStorageService.ts";
 import {useAppDispatch, useAppSelector} from "../hooks.ts";
 import {login, logout, UserRoles, UserState} from "../features/userSlice.ts";
 import axios from "axios";
 import {toast} from "react-toastify";
-
-import {Fragment, useState} from 'react'
 import {Dialog, Menu, Transition} from '@headlessui/react'
 import {
     Bars3Icon,
@@ -19,10 +17,22 @@ import {
     UsersIcon,
     XMarkIcon,
 } from '@heroicons/react/24/outline'
-import {ChevronDownIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid'
+import {ChevronDownIcon} from '@heroicons/react/20/solid'
 import {PageState} from "../features/pageSlice.ts";
 
-const navigation = [
+type HeroIcon = React.ForwardRefExoticComponent<React.PropsWithoutRef<React.SVGProps<SVGSVGElement>> & {
+    title?: string;
+    titleId?: string
+} & React.RefAttributes<SVGSVGElement>>;
+
+interface Navigation {
+    current: boolean;
+    name: string;
+    icon: HeroIcon;
+    href: string
+}
+
+const navigation: Navigation[] = [
     {name: 'Dashboard', href: '#', icon: HomeIcon, current: true},
     {name: 'Team', href: '#', icon: UsersIcon, current: false},
     {name: 'Projects', href: '#', icon: FolderIcon, current: false},
@@ -164,6 +174,7 @@ const Security = () => {
     }, []);
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
+
 
     return (
         <div className={`h-full bg-white`}>
