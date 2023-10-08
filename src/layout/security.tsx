@@ -32,18 +32,6 @@ interface Navigation {
     href: string
 }
 
-const navigation: Navigation[] = [
-    {name: 'Dashboard', href: '/', icon: HomeIcon, current: false},
-    {name: 'Team', href: '#', icon: UsersIcon, current: false},
-    {name: 'Projects', href: '#', icon: FolderIcon, current: false},
-    {name: 'Calendar', href: '#', icon: CalendarIcon, current: false},
-    {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},
-    {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
-]
-const userNavigation = [
-    {name: 'Your profile', href: '/settings'},
-    {name: 'Sign out', href: '/logout'},
-]
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -175,11 +163,24 @@ const Security = () => {
 
     const [sidebarOpen, setSidebarOpen] = useState(false)
 
+    const navigation: Navigation[] = [
+        {name: 'Dashboard', href: '/', icon: HomeIcon, current: false},
+        {name: 'Team', href: '#', icon: UsersIcon, current: false},
+        {name: 'Projects', href: '#', icon: FolderIcon, current: false},
+        {name: 'Calendar', href: '#', icon: CalendarIcon, current: false},
+        {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},
+        {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
+    ]
+
+    const userNavigation = [
+        {name: 'Your profile', href: '/settings'},
+        {name: 'Sign out', href: '/logout'},
+    ]
+
+
     const [navigationLinks, setNavigationLinks] = useState<Navigation[]>(navigation)
 
     useEffect(() => {
-        // console.log('page changed', page.item)
-
         if (page.item !== -1) {
             const newNavigationLinks: Navigation[] = navigation.map((item, index) => {
                 item.current = index === page.item;
@@ -191,10 +192,8 @@ const Security = () => {
 
 
         } else {
-            setNavigationLinks(navigationLinks)
+            setNavigationLinks(navigation)
         }
-
-
     }, [page])
 
     return (
@@ -255,7 +254,7 @@ const Security = () => {
                                             </div>
                                             <nav className="flex flex-1 flex-col">
                                                 <ul role="list" className="-mx-2 flex-1 space-y-1">
-                                                    {navigation.map((item) => (
+                                                    {navigationLinks.map((item) => (
                                                         <li key={item.name}>
                                                             <span
                                                                 onClick={() => {
@@ -295,7 +294,7 @@ const Security = () => {
                         </div>
                         <nav className="mt-1">
                             <ul role="list" className="flex flex-col items-center space-y-1">
-                                {navigation.map((item) => (
+                                {navigationLinks.map((item) => (
                                     <li key={item.name}>
                                         <span
                                             onClick={() => {
