@@ -55,7 +55,7 @@ const Login = () => {
                         }
 
                         if (basicUserRole === 'Travel Agent') {
-                            userRoles = ['TRAVEL_AGENT']
+                            userRoles = ['TRAVEL AGENT']
                         }
 
                         if (basicUserRole === 'Backoffice') {

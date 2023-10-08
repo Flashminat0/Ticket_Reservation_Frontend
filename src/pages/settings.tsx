@@ -1,6 +1,7 @@
 import React, {useEffect} from 'react';
 import {useAppDispatch} from "../hooks.ts";
 import {setItem, setTitle} from "../features/pageSlice.ts";
+import AccountSettings from "../components/setrings/AccountSettings.tsx";
 
 const Settings = () => {
     const dispatch = useAppDispatch();
@@ -13,7 +14,7 @@ const Settings = () => {
 
     return (
         <div>
-            settings
+           <AccountSettings/>
         </div>
     );
 };

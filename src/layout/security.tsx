@@ -87,7 +87,7 @@ const Security = () => {
                         }
 
                         if (basicUserRole === 'Travel Agent') {
-                            userRoles = ['TRAVEL_AGENT']
+                            userRoles = ['TRAVEL AGENT']
                         }
 
                         if (basicUserRole === 'Backoffice') {

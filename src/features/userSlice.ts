@@ -1,13 +1,13 @@
 import {createSlice} from '@reduxjs/toolkit'
 
-export type UserRoles = 'ADMIN' | 'BACKOFFICE' | 'TRAVEL_AGENT' | 'CUSTOMER' | 'UNREGISTERED'
+export type UserRoles = 'ADMIN' | 'BACKOFFICE' | 'TRAVEL AGENT' | 'CUSTOMER' | 'UNREGISTERED'
 
 export interface UserState {
     name : string,
     loggedIn: boolean,
     nic: string,
     isAdmin: boolean,
-    userRoles?: UserRoles[]
+    userRoles: UserRoles[]
 }
 
 const initialState: UserState = {
