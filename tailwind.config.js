@@ -1,3 +1,5 @@
+import forms from "@tailwindcss/forms";
+
 /** @type {import('tailwindcss').Config} */
 export default {
     content: [
@@ -8,8 +10,7 @@ export default {
         extend: {},
     },
     plugins: [
-        // eslint-disable-next-line no-undef
-        require('@tailwindcss/forms'),
+        forms,
     ],
 }
 
