@@ -168,7 +168,7 @@ const Security = () => {
 
     const navigation: Navigation[] = [
         {name: 'Dashboard', href: '/', icon: HomeIcon, current: false},
-        {name: 'Team', href: '#', icon: UsersIcon, current: false},
+        {name: 'Team', href: '/user-management', icon: UsersIcon, current: false},
         {name: 'Projects', href: '#', icon: FolderIcon, current: false},
         {name: 'Calendar', href: '#', icon: CalendarIcon, current: false},
         {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},

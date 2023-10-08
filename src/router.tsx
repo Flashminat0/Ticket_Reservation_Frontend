@@ -9,7 +9,9 @@ import Login from "./pages/auth/login.tsx";
 import Activate from "./pages/auth/activate.tsx";
 import Register from "./pages/auth/register.tsx";
 import Logout from "./pages/auth/logout.tsx";
+
 import Settings from "./pages/settings.tsx";
+import UserManagement from "./pages/userManagement.tsx";
 
 
 const Router = () => {
@@ -18,6 +20,7 @@ const Router = () => {
             <Routes>
                 <Route path="/" element={<Security/>}>
                     <Route path="/" element={<Home/>}/>
+                    <Route path="/user-management" element={<UserManagement/>}/>
                     <Route path="/settings" element={<Settings/>}/>
 
                 </Route>

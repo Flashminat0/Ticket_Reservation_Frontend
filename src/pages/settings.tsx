@@ -10,11 +10,14 @@ const Settings = () => {
         dispatch(setTitle('Settings'));
         dispatch(setItem(-1));
 
+
     }, []);
+
+
 
     return (
         <div>
-           <AccountSettings/>
+            <AccountSettings/>
         </div>
     );
 };
