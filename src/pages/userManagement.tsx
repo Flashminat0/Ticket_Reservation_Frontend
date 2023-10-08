@@ -47,7 +47,7 @@ const UserManagement = () => {
     const [travelAgents, setTravelAgents] = React.useState<TravelAgent[]>([]);
 
     const getTravelAgents = async () => {
-        axios.get('api/User/type/travel agent')
+        axios.get('/api/User/type/travel agent')
             .then((response) => {
                 toast.success(response.data.message, {
                     position: "bottom-center",
