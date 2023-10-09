@@ -118,8 +118,22 @@ const UserManagement = () => {
         return `${days} days ${remainingHours} hours ${remainingMinutes} minutes ${remainingSeconds} seconds ago`
     }
 
-    const disableUser = async (userNIC: string, userType: string) => {
-        console.log(userNIC, userType)
+    const disableUser = async (userNIC: string, userType: string, isActive: boolean) => {
+        axios.post('/api/auth/activate', {
+            requestingNic: user.nic,
+            nic: userNIC,
+            isActive: isActive,
+            isAdmin: false
+        }).then((response) => {
+            toast.success(response.data.message, {
+                position: "bottom-center",
+            })
+        }).catch((error) => {
+            toast.error(error.response.data.message, {
+                position: "bottom-center",
+            })
+        })
+
 
         if (userType == 'Travel Agent') {
             const newTravelAgents = travelAgents.map((travelAgent) => {
@@ -151,7 +165,15 @@ const UserManagement = () => {
     }
 
     const deleteUser = async (userNIC: string, userType: string) => {
-        console.log(userNIC, userType)
+        axios.delete(`/api/user/${userNIC}`).then((response) => {
+            toast.success(response.data.message, {
+                position: "bottom-center",
+            })
+        }).catch((error) => {
+            toast.error(error.response.data.message, {
+                position: "bottom-center",
+            })
+        })
 
         if (userType == 'Travel Agent') {
             const newTravelAgents = travelAgents.filter((travelAgent) => {
@@ -238,7 +260,7 @@ const UserManagement = () => {
                                                     <Menu.Item>
                                                         {({active}) => (
                                                             <span
-                                                                onClick={() => disableUser(singleTravelAgent.nic, singleTravelAgent.userType)}
+                                                                onClick={() => disableUser(singleTravelAgent.nic, singleTravelAgent.userType, !singleTravelAgent.isActive)}
                                                                 className={classNames(
                                                                     active ? 'bg-gray-50' : '',
                                                                     'block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer'
@@ -253,7 +275,16 @@ const UserManagement = () => {
                                                     <Menu.Item>
                                                         {({active}) => (
                                                             <span
-                                                                onClick={() => deleteUser(singleTravelAgent.nic, singleTravelAgent.userType)}
+                                                                onClick={() => {
+                                                                    if (singleTravelAgent.isActive) {
+                                                                        toast.error('Please deactivate the user before deleting', {
+                                                                            position: "bottom-center",
+                                                                        })
+                                                                        return;
+                                                                    }
+
+                                                                    deleteUser(singleTravelAgent.nic, singleTravelAgent.userType)
+                                                                }}
                                                                 className={classNames(
                                                                     active ? 'bg-gray-50' : '',
                                                                     'block px-3 py-1 text-sm leading-6 text-gray-900 cursor-pointer'

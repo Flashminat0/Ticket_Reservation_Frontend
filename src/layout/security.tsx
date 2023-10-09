@@ -108,9 +108,6 @@ const Security = () => {
                             position: "bottom-center",
                         })
 
-                        // TODO ONLY DO THIS ON NON LOGIN PAGES
-
-                        navigate('/', {replace: true})
                     })
 
             })
