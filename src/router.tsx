@@ -14,6 +14,7 @@ import Settings from "./pages/settings.tsx";
 import UserManagement from "./pages/userManagement.tsx";
 import Schedule from "./pages/schedule.tsx";
 import Train from "./pages/train.tsx";
+import EditTrain from "./pages/editTrain.tsx";
 
 
 const Router = () => {
@@ -24,6 +25,7 @@ const Router = () => {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/user-management" element={<UserManagement/>}/>
                     <Route path="/trains" element={<Train/>}/>
+                    <Route path="/trains/:id" element={<EditTrain/>}/>
                     <Route path="/schedule" element={<Schedule/>}/>
                     <Route path="/settings" element={<Settings/>}/>
 
