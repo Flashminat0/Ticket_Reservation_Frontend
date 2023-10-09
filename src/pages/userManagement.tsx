@@ -55,7 +55,7 @@ const UserManagement = () => {
                     position: "top-right",
                 })
 
-                navigate('/dashboard');
+                navigate('/');
             }
         }
     }, [user]);
