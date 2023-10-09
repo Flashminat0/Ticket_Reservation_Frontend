@@ -2,12 +2,14 @@ import React, {useEffect, useState} from 'react';
 import axios from "axios";
 
 interface IDistrictSelector {
+    disabled?: boolean,
     description?: string,
     currentDistrict?: string,
     handleDistrictSelect: (district: string) => void
 }
 
 const DistrictSelector: React.FC<IDistrictSelector> = ({
+                                                           disabled,
                                                            description,
                                                            currentDistrict,
                                                            handleDistrictSelect
@@ -54,10 +56,11 @@ const DistrictSelector: React.FC<IDistrictSelector> = ({
                                     key={district}
                                     className="flex items-center gap-x-3">
                                     <input
+                                        disabled={disabled}
                                         id={district}
                                         checked={selectedDistrict === district}
                                         onChange={() => setSelectedDistrict(district)}
-                                        name="district-selector"
+                                        name={description}
                                         type="radio"
                                         className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
                                     />
