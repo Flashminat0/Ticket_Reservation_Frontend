@@ -59,6 +59,22 @@ const ListTrain = () => {
     }, []);
 
 
+    const deleteTrain = (id: string) => {
+        axios.delete(`/api/train/${id}/${user.nic}`)
+            .then((response) => {
+                toast.success(response.data.message, {
+                    position: "bottom-center",
+                })
+
+                getTrains()
+            })
+            .catch((error) => {
+                toast.error(error.response.data.message, {
+                    position: "bottom-center",
+                })
+            })
+    }
+
     return (
         <div>
             <div className="px-4 sm:px-6 lg:px-8">
@@ -129,9 +145,11 @@ const ListTrain = () => {
                                         Edit<span className="sr-only">, {train.trainName}</span>
                                     </span>
 
-                                    <a href="#" className="text-indigo-600 hover:text-indigo-900 ml-2 cursor-pointer">
+                                    <span
+                                        onClick={() => deleteTrain(train.id)}
+                                        className="text-indigo-600 hover:text-indigo-900 ml-2 cursor-pointer">
                                         Delete<span className="sr-only">, {train.trainName}</span>
-                                    </a>
+                                    </span>
                                 </td>
                             </tr>
                         ))}
