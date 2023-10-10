@@ -1,9 +1,10 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch} from "../../hooks.ts";
+import {useAppDispatch, useAppSelector} from "../../hooks.ts";
 import {setItem, setTitle} from "../../features/pageSlice.ts";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
+import {UserState} from "../../features/userSlice.ts";
 
 export interface ITrain {
     id: string,
@@ -23,9 +24,11 @@ export interface ITrain {
 const ListTrain = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
+    const user: UserState = useAppSelector(state => state.user)
+
 
     useEffect(() => {
-        dispatch(setTitle('ListTrain Management'));
+        dispatch(setTitle('Train Management'));
         dispatch(setItem(2));
 
 
@@ -34,7 +37,9 @@ const ListTrain = () => {
 
     const [trains, setTrains] = React.useState<ITrain[]>([])
     const getTrains = () => {
-        axios.get('/api/train')
+        const URL = user.isAdmin ? '/api/train' : `/api/train/owner/${user.nic}`
+
+        axios.get(URL)
             .then((response) => {
                 toast.success(response.data.message, {
                     position: "bottom-center",
@@ -68,6 +73,7 @@ const ListTrain = () => {
                     </div>
                     <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
                         <button
+                            onClick={() => navigate('/trains/create')}
                             type="button"
                             className="block rounded-md bg-indigo-600 px-3 py-2 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                         >

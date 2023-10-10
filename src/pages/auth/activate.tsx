@@ -48,10 +48,11 @@ const Activate = () => {
                 position: "bottom-center",
             })
 
+
             const reduxData: UserState = {
                 name: name,
                 nic: user.nic,
-                isAdmin: false,
+                isAdmin: userType === 'BACKOFFICE',
                 userRoles: [userType],
                 loggedIn: true
             }

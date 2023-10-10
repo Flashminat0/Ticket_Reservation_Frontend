@@ -56,7 +56,7 @@ const DistrictSelector: React.FC<IDistrictSelector> = ({
                 </legend>
                 <div className="mt-6 space-y-6">
                     <div
-                        className="sm:grid sm:grid-cols-3 md:grid-cols-5 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 p-2">
+                        className="sm:grid sm:grid-cols-4 md:grid-cols-5 sm:gap-4 sm:items-start sm:border-t sm:border-gray-200 p-2">
                         {districts.map((district) => {
                             return (
                                 <div

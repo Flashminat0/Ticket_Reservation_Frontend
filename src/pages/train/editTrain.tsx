@@ -27,7 +27,7 @@ const EditTrain = () => {
 
     const dispatch = useAppDispatch();
     useEffect(() => {
-        dispatch(setTitle('Edit ListTrain'));
+        dispatch(setTitle(`Edit Train #${id}`));
         dispatch(setItem(2));
 
 
@@ -51,10 +51,9 @@ const EditTrain = () => {
             const startTimeISO = new Date(train.startTime).toISOString();
             const endTimeISO = new Date(train.endTime).toISOString();
 
-            console.log(startTimeISO)
-
             const sendingTrain: ITrain = {
                 ...train,
+                id: id,
                 startTime: startTimeISO,
                 endTime: endTimeISO
             }
@@ -69,6 +68,7 @@ const EditTrain = () => {
                         position: "bottom-center",
                     })
 
+                    setFallbackTrain(train)
                     setEditState(false)
                 }).catch((error) => {
                 toast.error(error.response.data.message, {
