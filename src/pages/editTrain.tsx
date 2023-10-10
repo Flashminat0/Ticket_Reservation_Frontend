@@ -59,6 +59,8 @@ const EditTrain = () => {
                     toast.success(response.data.message, {
                         position: "bottom-center",
                     })
+
+                    setEditState(false)
                 }).catch((error) => {
                 toast.error(error.response.data.message, {
                     position: "bottom-center",
