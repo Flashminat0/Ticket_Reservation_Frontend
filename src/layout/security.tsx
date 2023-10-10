@@ -154,8 +154,6 @@ const Security = () => {
                 })
 
         } else {
-            console.log('Not logged in')
-
             if (user.loggedIn) {
                 storeNIC(user.nic)
             }
