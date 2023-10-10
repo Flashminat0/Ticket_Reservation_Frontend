@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import axios from "axios";
 import DistrictSelector from "../components/trains/DistrictSelector.tsx";
-import Train from "./train.tsx";
+import {Train} from "./train.tsx";
 
 const EditTrain = () => {
     const location = useLocation();
@@ -30,8 +30,6 @@ const EditTrain = () => {
     const handleDistrictChange = (district: string) => {
         console.log(district)
     }
-
-
 
 
     return (
