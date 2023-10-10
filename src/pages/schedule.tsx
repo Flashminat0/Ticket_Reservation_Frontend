@@ -6,7 +6,7 @@ const Schedule = () => {
     const dispatch = useAppDispatch();
 
     useEffect(() => {
-        dispatch(setTitle('Schedule Train'));
+        dispatch(setTitle('Schedule ListTrain'));
         dispatch(setItem(3));
 
 

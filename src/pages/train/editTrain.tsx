@@ -1,12 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import axios from "axios";
-import DistrictSelector from "../components/trains/DistrictSelector.tsx";
-import {Train} from "./train.tsx";
-import DatePicker from "../components/trains/DatePicker.tsx";
-import {UserState} from "../features/userSlice.ts";
-import {useAppSelector} from "../hooks.ts";
+import DistrictSelector from "../../components/trains/DistrictSelector.tsx";
+import {ITrain} from "./listTrain.tsx";
+import DatePicker from "../../components/trains/DatePicker.tsx";
+import {UserState} from "../../features/userSlice.ts";
+import {useAppDispatch, useAppSelector} from "../../hooks.ts";
 import {toast} from "react-toastify";
+import {setItem, setTitle} from "../../features/pageSlice.ts";
 
 const EditTrain = () => {
     const location = useLocation();
@@ -14,8 +15,8 @@ const EditTrain = () => {
     const user: UserState = useAppSelector(state => state.user)
 
     const id = location.pathname.split('/')[2];
-    const [train, setTrain] = useState<Train | null>(null);
-    const [fallbackTrain, setFallbackTrain] = useState<Train | null>(null);
+    const [train, setTrain] = useState<ITrain | null>(null);
+    const [fallbackTrain, setFallbackTrain] = useState<ITrain | null>(null);
 
     useEffect(() => {
         if (id) {
@@ -23,6 +24,14 @@ const EditTrain = () => {
         }
 
     }, [id]);
+
+    const dispatch = useAppDispatch();
+    useEffect(() => {
+        dispatch(setTitle('Edit ListTrain'));
+        dispatch(setItem(2));
+
+
+    }, []);
 
     const getSingleTrain = (id: string) => {
         axios.get(`/api/train/${id}`)
@@ -44,7 +53,7 @@ const EditTrain = () => {
 
             console.log(startTimeISO)
 
-            const sendingTrain: Train = {
+            const sendingTrain: ITrain = {
                 ...train,
                 startTime: startTimeISO,
                 endTime: endTimeISO

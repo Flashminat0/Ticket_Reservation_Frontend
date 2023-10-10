@@ -13,8 +13,9 @@ import Logout from "./pages/auth/logout.tsx";
 import Settings from "./pages/settings.tsx";
 import UserManagement from "./pages/userManagement.tsx";
 import Schedule from "./pages/schedule.tsx";
-import Train from "./pages/train.tsx";
-import EditTrain from "./pages/editTrain.tsx";
+import ListTrain from "./pages/train/listTrain.tsx";
+import EditTrain from "./pages/train/editTrain.tsx";
+import CreateTrain from "./pages/train/createTrain.tsx";
 
 
 const Router = () => {
@@ -24,7 +25,8 @@ const Router = () => {
                 <Route path="/" element={<Security/>}>
                     <Route path="/" element={<Home/>}/>
                     <Route path="/user-management" element={<UserManagement/>}/>
-                    <Route path="/trains" element={<Train/>}/>
+                    <Route path="/trains" element={<ListTrain/>}/>
+                    <Route path="/trains/create" element={<CreateTrain/>}/>
                     <Route path="/trains/:id" element={<EditTrain/>}/>
                     <Route path="/schedule" element={<Schedule/>}/>
                     <Route path="/settings" element={<Settings/>}/>

@@ -1,11 +1,11 @@
 import React, {useEffect} from 'react';
-import {useAppDispatch} from "../hooks.ts";
-import {setItem, setTitle} from "../features/pageSlice.ts";
+import {useAppDispatch} from "../../hooks.ts";
+import {setItem, setTitle} from "../../features/pageSlice.ts";
 import axios from "axios";
 import {toast} from "react-toastify";
 import {useNavigate} from "react-router-dom";
 
-export interface Train {
+export interface ITrain {
     id: string,
     trainName: string,
     trainType: string,
@@ -20,19 +20,19 @@ export interface Train {
     isActive: boolean
 }
 
-const Train = () => {
+const ListTrain = () => {
     const dispatch = useAppDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(setTitle('Train Management'));
+        dispatch(setTitle('ListTrain Management'));
         dispatch(setItem(2));
 
 
     }, []);
 
 
-    const [trains, setTrains] = React.useState<Train[]>([])
+    const [trains, setTrains] = React.useState<ITrain[]>([])
     const getTrains = () => {
         axios.get('/api/train')
             .then((response) => {
@@ -137,4 +137,4 @@ const Train = () => {
     );
 };
 
-export default Train;
+export default ListTrain;
