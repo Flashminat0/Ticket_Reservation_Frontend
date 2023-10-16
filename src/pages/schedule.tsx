@@ -36,9 +36,7 @@ const Schedule = () => {
     const getTrainList = () => {
         axios.get('/api/train')
             .then((response) => {
-                toast.success(response.data.message, {
-                    position: "bottom-center",
-                })
+
 
                 const trainList: ITrain[] = response.data.data
 
@@ -49,9 +47,9 @@ const Schedule = () => {
     const getReservationForTrain = async (trainId: string): Promise<IReservation[]> => {
         return await axios.get(`/api/Reservation/train/${trainId}`)
             .then((response) => {
-                toast.success(response.data.message, {
-                    position: "bottom-center",
-                })
+                // toast.success(response.data.message, {
+                //     position: "bottom-center",
+                // })
 
                 const reservationList: IReservation[] = response.data.data
 
@@ -79,7 +77,14 @@ const Schedule = () => {
     useEffect(() => {
         if (trains.length > 0) {
             for (const train of trains) {
+                setSchedules([])
+
                 fillSchedule(train)
+                    .then(() => {
+                        toast.success("Schedules Loaded", {
+                            position: "bottom-center",
+                        })
+                    })
             }
         } else {
             setSchedules([])
@@ -88,14 +93,13 @@ const Schedule = () => {
 
     return (
         <div className={`grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-5`}>
-            {schedules.map((schedule, index) => {
+            {schedules.map((schedule) => {
                 return (
                     <ScheduleCard
-                        key={index}
+                        key={schedule.train.id}
                         reservations={schedule.reservations} train={schedule.train}/>
                 )
             })}
-
         </div>
     );
 };
