@@ -167,8 +167,8 @@ const Security = () => {
         {name: 'Team', href: '/user-management', icon: UsersIcon, current: false},
         {name: 'Trains', href: '/trains', icon: SwatchIcon, current: false},
         {name: 'Schedule', href: '/schedule', icon: CalendarIcon, current: false},
-        {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},
-        {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
+        // {name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false},
+        // {name: 'Reports', href: '#', icon: ChartPieIcon, current: false},
     ]
 
     const userNavigation = [
